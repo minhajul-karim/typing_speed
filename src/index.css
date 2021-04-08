@@ -1,13 +1,88 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Typography */
+
+h1 {
+  font-weight: bold;
+  font-weight: 800;
+  font-size: 3rem;
+  margin: 0;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+.typing_container__textarea {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.2rem;
+}
+
+.typing_container__speed,
+.typing_container__accuracy {
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+strong {
+  font-weight: 800;
+  font-size: 2rem;
+  display: block;
+}
+
+/* Layout */
+
+.typing_container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1em;
+  display: grid;
+  grid-template: 80px repeat(2, 1fr) 250px / 1fr 250px;
+  grid-template-areas:
+    "title title"
+    "test speed"
+    "test accuracy"
+    "textarea textarea";
+}
+
+.typing_container__title {
+  grid-area: title;
+  justify-self: center;
+  align-self: center;
+}
+
+.typing_container__test {
+  grid-area: test;
+}
+
+.typing_container__speed {
+  grid-area: speed;
+}
+
+.typing_container__accuracy {
+  grid-area: accuracy;
+}
+
+.typing_container__textarea {
+  grid-area: textarea;
+}
+
+.typing_container__speed,
+.typing_container__accuracy {
+  justify-self: center;
+  align-self: center;
+  text-align: center;
 }
