@@ -55,7 +55,7 @@ strong {
   margin: 0 auto;
   padding: 0 1em;
   display: grid;
-  grid-template: 80px repeat(2, 1fr) 50px 150px / 1fr 250px;
+  grid-template: 100px repeat(2, 1fr) 80px 150px / 1fr 250px;
   grid-template-areas:
     "title title"
     "test speed"
