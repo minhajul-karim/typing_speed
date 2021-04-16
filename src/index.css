@@ -115,3 +115,22 @@ strong {
   align-self: center;
   text-align: center;
 }
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.modal {
+  background: white;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 2em;
+  position: relative;
+  top: 30%;
+}
