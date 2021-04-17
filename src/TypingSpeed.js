@@ -29,10 +29,10 @@ export default function TypingSpeed() {
       <h1 className="typing_container__title">Typing Speed Test</h1>
       <p className="typing_container__test">{testText}</p>
       <p className="typing_container__speed">
-        Speed <strong>{wpm}</strong> WPM
+        Speed <strong>{wpm > 0 ? wpm : 0}</strong> WPM
       </p>
       <p className="typing_container__accuracy">
-        Accuracy <strong>{accuracy}%</strong>
+        Accuracy <strong>{accuracy > 0 ? accuracy : 0}%</strong>
       </p>
       <button
         type="button"

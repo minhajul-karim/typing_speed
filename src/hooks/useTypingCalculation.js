@@ -12,10 +12,10 @@ export default function useTypingCalculation() {
   const [shouldModalOpen, setShouldModalOpen] = useState(false)
   const textareaRef = useRef(null)
   const testText =
-    'this is a simple paragraph that is meant to be nice and easy to type which is why there will be mommas no periods or any capital letters so i guess this means that it cannot really be considered a paragraph but just a series of run on sentences this should help you get faster at typing as im trying not to use too many difficult words in it.'
+    'this is a simple paragraph that is meant to be nice and easy to type which is why there will be commas no periods or any capital letters so i guess this means that it cannot really be considered a paragraph but just a series of run on sentences this should help you get faster at typing as im trying not to use too many difficult words in it.'
   const testTextArr = testText.split(' ')
 
-  // Save user input in state
+  // Save user input
   const changeHandler = (event) => {
     setText(event.target.value)
   }
@@ -27,8 +27,10 @@ export default function useTypingCalculation() {
     setTimeRemaining(TEST_DURATION)
     setHasTestStarted(true)
     setText('')
+    setNonsensicalWords([])
   }
 
+  // Close modal
   const goBack = () => {
     setShouldModalOpen(false)
   }
@@ -36,6 +38,7 @@ export default function useTypingCalculation() {
   // Calculate mistakes
   const calculateMistakes = useCallback(() => {
     let mistakes = 0
+    // Remove unnecessary spaces from text
     const filteredText = text
       .trim()
       .split(' ')
@@ -53,7 +56,9 @@ export default function useTypingCalculation() {
 
   // Calculate WPM and accuracy
   useEffect(() => {
+    // Check if user has pressed space
     const hasPressedSpace = text[text.length - 1] === ' '
+    // Calculate wpm, accuracy after each space
     if (hasPressedSpace) {
       const grossWpm = Math.ceil(text.length / 5 / (TEST_DURATION / 60))
       const mistakes = calculateMistakes()
@@ -64,6 +69,7 @@ export default function useTypingCalculation() {
     }
   }, [calculateMistakes, text])
 
+  // Handle the countdown timer
   useEffect(() => {
     let timeoutId = null
     if (hasTestStarted && timeRemaining > 0) {
@@ -77,6 +83,22 @@ export default function useTypingCalculation() {
     return () => clearTimeout(timeoutId)
   }, [hasTestStarted, shouldModalOpen, timeRemaining])
 
+  // Give focus to textarea when user clicks start button
+  useEffect(() => {
+    if (hasTestStarted) {
+      textareaRef.current.focus()
+    }
+  }, [hasTestStarted])
+
+  // Open modal when user writes more than 2 nonsensical words
+  useEffect(() => {
+    if (nonsensicalWords.length > 2) {
+      setShouldModalOpen(true)
+      textareaRef.current.blur()
+    }
+  }, [nonsensicalWords])
+
+  // Reset test when the modal is open
   useEffect(() => {
     if (shouldModalOpen) {
       setTimeRemaining(0)
@@ -85,20 +107,6 @@ export default function useTypingCalculation() {
       setAccuracy(0)
     }
   }, [shouldModalOpen])
-
-  useEffect(() => {
-    // Give focus to textarea
-    if (hasTestStarted) {
-      textareaRef.current.focus()
-    }
-  }, [hasTestStarted])
-
-  useEffect(() => {
-    if (nonsensicalWords.length > 2) {
-      setShouldModalOpen(true)
-      textareaRef.current.blur()
-    }
-  }, [nonsensicalWords])
 
   return {
     startTest,
