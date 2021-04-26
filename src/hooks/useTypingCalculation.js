@@ -1,6 +1,9 @@
 import asdfjkl from 'asdfjkl'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+const testText =
+  'this is a simple paragraph that is meant to be nice and easy to type which is why there will be commas no periods or any capital letters so i guess this means that it cannot really be considered a paragraph but just a series of run on sentences this should help you get faster at typing as im trying not to use too many difficult words in it.'
+
 export default function useTypingCalculation() {
   const TEST_DURATION = 60
   const [text, setText] = useState('')
@@ -11,8 +14,6 @@ export default function useTypingCalculation() {
   const [nonsensicalWords, setNonsensicalWords] = useState([])
   const [shouldModalOpen, setShouldModalOpen] = useState(false)
   const textareaRef = useRef(null)
-  const testText =
-    'this is a simple paragraph that is meant to be nice and easy to type which is why there will be commas no periods or any capital letters so i guess this means that it cannot really be considered a paragraph but just a series of run on sentences this should help you get faster at typing as im trying not to use too many difficult words in it.'
   const testTextArr = testText.split(' ')
 
   // Save user input

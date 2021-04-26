@@ -1,5 +1,5 @@
 import React from 'react'
-import useTypingCalculation from './hooks/useTypingCalculation'
+import useTypingCalculation from '../../hooks/useTypingCalculation'
 
 export default function TypingSpeed() {
   const {

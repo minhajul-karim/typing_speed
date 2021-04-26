@@ -1,4 +1,4 @@
-import TypingSpeed from './TypingSpeed'
+import TypingSpeed from '../TypingSpeed/TypingSpeed'
 
 function App() {
   return (
