@@ -33,7 +33,13 @@ const reducer = (state, action) => {
         nonsensicalWordsCount: 0,
       }
     case 'RESET': {
-      return { ...state, timeRemaining: 0, hasTestStarted: false, wpm: 0, accuracy: 0 }
+      return {
+        ...state,
+        timeRemaining: 0,
+        hasTestStarted: false,
+        wpm: 0,
+        accuracy: 0,
+      }
     }
     case 'CALCULATE_MISTAKES':
       if (action.count > 3) {
@@ -71,7 +77,7 @@ const calculateMistakes = (text) => {
   return { mistakes, nonsensicalWords }
 }
 
-export default function useTypingCalculation() {
+export function useTypingCalculation() {
   const textareaRef = useRef(null)
   const [state, dispatch] = useReducer(reducer, {
     text: '',
