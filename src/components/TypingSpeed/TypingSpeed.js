@@ -7,6 +7,7 @@ export default function TypingSpeed() {
     hasTestStarted,
     timeRemaining,
     testText,
+    testTextSpans,
     text,
     wpm,
     accuracy,
@@ -27,7 +28,7 @@ export default function TypingSpeed() {
         </div>
       </div>
       <h1 className="typing_container__title">Typing Speed Test</h1>
-      <p className="typing_container__test">{testText}</p>
+      <p className="typing_container__test">{testTextSpans}</p>
       <p className="typing_container__speed">
         Speed <strong>{wpm > 0 ? wpm : 0}</strong> WPM
       </p>

@@ -134,3 +134,8 @@ strong {
   position: relative;
   top: 30%;
 }
+
+.hightlight {
+  background: green;
+  color: white;
+}
