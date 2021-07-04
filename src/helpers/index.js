@@ -30,6 +30,8 @@ export const reducer = (state, action) => {
         wpm: 0,
         accuracy: 0,
         nonsensicalWordsCount: 0,
+        highlightIndex: 0,
+        highlightClassName: 'hightlight',
       }
     case 'RESET': {
       return {
@@ -42,7 +44,12 @@ export const reducer = (state, action) => {
     }
     case 'CALCULATE_MISTAKES':
       if (action.count > 3) {
-        return { ...state, shouldModalOpen: true, nonsensicalWordsCount: 0 }
+        return {
+          ...state,
+          shouldModalOpen: true,
+          modalText: 'Please focus on your accuracy and try again',
+          nonsensicalWordsCount: 0,
+        }
       }
       return {
         ...state,
@@ -51,15 +58,29 @@ export const reducer = (state, action) => {
         nonsensicalWordsCount: action.count,
       }
     case 'INCREMENT_HIGHLIGHT_INDEX':
-      // TODO: Check out of array index
-      return {
-        ...state,
-        highlightIndex: state.highlightIndex + 1,
+      if (state.highlightIndex < testTextArr.length - 1) {
+        return {
+          ...state,
+          highlightIndex: state.highlightIndex + 1,
+          highlightClassName: action.className,
+        }
       }
+      return state
     case 'PRESSED_SPACE':
       return {
         ...state,
         hasPressedSpace: action.hasPressedSpace,
+      }
+    case 'CHANGE_HIGHLIGHT_COLOR':
+      return {
+        ...state,
+        highlightClassName: action.className,
+      }
+    case 'END_TEST':
+      return {
+        ...state,
+        shouldModalOpen: true,
+        modalText: `Congrats! You're a legend!`,
       }
     default:
       return state

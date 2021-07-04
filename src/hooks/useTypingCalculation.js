@@ -2,6 +2,7 @@ import { useEffect, useReducer, useRef } from 'react'
 import { reducer, calculateMistakes, testTextArr, testText, TEST_DURATION } from '../helpers'
 
 export function useTypingCalculation() {
+  const audio = new Audio('https://www.typingclub.com/m/audio/error.mp3')
   const textareaRef = useRef(null)
   const [state, dispatch] = useReducer(reducer, {
     text: '',
@@ -13,6 +14,8 @@ export function useTypingCalculation() {
     shouldModalOpen: false,
     highlightIndex: 0,
     hasPressedSpace: false,
+    highlightClassName: 'hightlight',
+    modalText: '',
   })
 
   const {
@@ -23,14 +26,16 @@ export function useTypingCalculation() {
     accuracy,
     nonsensicalWordsCount,
     shouldModalOpen,
+    modalText,
     highlightIndex,
     hasPressedSpace,
+    highlightClassName,
   } = state
 
   const testTextSpans = testTextArr.map((word, index) => (
     <span
       key={index}
-      className={index === highlightIndex ? 'hightlight' : undefined}
+      className={index === highlightIndex ? highlightClassName : undefined}
     >{`${word} `}</span>
   ))
 
@@ -102,10 +107,27 @@ export function useTypingCalculation() {
       if (userHasTypedLastWord === wordNeedsToType) {
         dispatch({
           type: 'INCREMENT_HIGHLIGHT_INDEX',
+          className: 'hightlight',
+        })
+      } else {
+        audio.play()
+        dispatch({
+          type: 'CHANGE_HIGHLIGHT_COLOR',
+          className: 'hightlight__red',
         })
       }
     }
   }, [hasPressedSpace])
+
+  // When user has finished typing the given text
+  useEffect(() => {
+    if (highlightIndex === testTextArr.length - 1) {
+      // Delay showing the congrats message to let the user see the full text in textarea
+      setTimeout(() => {
+        dispatch({ type: 'END_TEST' })
+      }, 1000)
+    }
+  }, [highlightIndex])
 
   // Detect if user has pressed space or not
   useEffect(() => {
@@ -130,6 +152,7 @@ export function useTypingCalculation() {
     textareaRef,
     changeHandler,
     shouldModalOpen,
+    modalText,
     goBack,
   }
 }

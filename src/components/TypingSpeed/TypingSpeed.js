@@ -6,7 +6,6 @@ export default function TypingSpeed() {
     startTest,
     hasTestStarted,
     timeRemaining,
-    testText,
     testTextSpans,
     text,
     wpm,
@@ -14,6 +13,7 @@ export default function TypingSpeed() {
     textareaRef,
     changeHandler,
     shouldModalOpen,
+    modalText,
     goBack,
   } = useTypingCalculation()
 
@@ -21,7 +21,7 @@ export default function TypingSpeed() {
     <div className="typing_container">
       <div className="overlay" style={{ display: shouldModalOpen ? 'block' : 'none' }}>
         <div className="modal">
-          <h2>Please focus on your accuracy and try again</h2>
+          <h2>{modalText}</h2>
           <button type="button" className="typing_container__btn" onClick={goBack}>
             Go back
           </button>
