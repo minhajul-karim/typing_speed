@@ -117,6 +117,7 @@ export function useTypingCalculation() {
         })
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasPressedSpace])
 
   // When user has finished typing the given text
