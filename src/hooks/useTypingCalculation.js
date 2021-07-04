@@ -93,22 +93,26 @@ export function useTypingCalculation() {
     }
   }, [nonsensicalWordsCount, shouldModalOpen])
 
-  // Increment highlight index
+  // Increment highlight index only if user has typed correct word
   useEffect(() => {
+    const wordNeedsToType = testTextArr[state.highlightIndex]
     if (hasPressedSpace) {
-      dispatch({
-        type: 'INCREMENT_HIGHLIGHT_INDEX',
-      })
+      const userHasTypedArr = text.split(' ')
+      const userHasTypedLastWord = userHasTypedArr[userHasTypedArr.length - 2]
+      if (userHasTypedLastWord === wordNeedsToType) {
+        dispatch({
+          type: 'INCREMENT_HIGHLIGHT_INDEX',
+        })
+      }
     }
   }, [hasPressedSpace])
 
+  // Detect if user has pressed space or not
   useEffect(() => {
     textareaRef.current.addEventListener('keyup', (e) => {
       if (e.key === ' ') {
-        // dispatch hasPressedSpace true
         dispatch({ type: 'PRESSED_SPACE', hasPressedSpace: true })
       } else {
-        // dispatch hasPressedSpace false
         dispatch({ type: 'PRESSED_SPACE', hasPressedSpace: false })
       }
     })
