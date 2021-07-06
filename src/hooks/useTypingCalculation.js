@@ -132,14 +132,12 @@ export function useTypingCalculation() {
 
   // Detect if user has pressed space or not
   useEffect(() => {
-    textareaRef.current.addEventListener('keyup', (e) => {
-      if (e.key === ' ') {
-        dispatch({ type: 'PRESSED_SPACE', hasPressedSpace: true })
-      } else {
-        dispatch({ type: 'PRESSED_SPACE', hasPressedSpace: false })
-      }
-    })
-  }, [])
+    if (text.slice(-1) === ' ') {
+      dispatch({ type: 'PRESSED_SPACE', hasPressedSpace: true })
+    } else {
+      dispatch({ type: 'PRESSED_SPACE', hasPressedSpace: false })
+    }
+  }, [text])
 
   return {
     startTest,
